@@ -9,11 +9,14 @@ const SearchScreen = () => {
     setSearchText(newValue);
   };
 
+  const handleSubmitSearch = () => {};
+
   return (
     <View>
       <SearchBar
         searchText={searchText}
         onChangeSearchText={handleChangeSearchText}
+        onSearchTextSubmit={handleSubmitSearch}
       />
     </View>
   );
