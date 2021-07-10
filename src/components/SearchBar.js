@@ -1,21 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const SearchBar = () => {
-  const [searchText, setSearchText] = useState('');
-
-  const handleChangeText = (newValue) => {
-    setSearchText(newValue);
-  };
-
+const SearchBar = ({ searchText, onChangeSearchText }) => {
   return (
     <View style={styles.container}>
       <Ionicons name="search" style={styles.icon} />
       <TextInput
         placeholder={'Search'}
         value={searchText}
-        onChangeText={handleChangeText}
+        onChangeText={onChangeSearchText}
         style={styles.input}
       />
     </View>
