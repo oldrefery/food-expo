@@ -1,19 +1,31 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import BusinessCard from './BusinessCard';
 
-const BusinessesList = ({ title }) => {
+const BusinessesList = ({ title, price, data }) => {
+  const businesses = data.filter((business) => business.price === price);
+
+  const renderItem = ({ item }) => <BusinessCard item={item} />;
+
+  const keyExtractor = (item) => item.id;
+
   return (
     <View>
-      <Text>{title}</Text>
-      <View style={styles.cards} />
+      <Text style={styles.title}>{title}</Text>
+      <FlatList
+        data={businesses}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        horizontal
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  cards: {
-    height: 100,
-    width: 200,
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 

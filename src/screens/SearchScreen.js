@@ -25,9 +25,9 @@ const SearchScreen = () => {
       />
       {errorMessage ? <Text>{errorMessage}</Text> : null}
       <Text>We have found {businesses.length} results</Text>
-      <BusinessesList title={'Cost Effective'} />
-      <BusinessesList title={'Bit Pricer'} />
-      <BusinessesList title={'Big Spender!'} />
+      <BusinessesList title={'Cost Effective'} price={'$'} data={businesses} />
+      <BusinessesList title={'Bit Pricier'} price={'$$'} data={businesses} />
+      <BusinessesList title={'Big Spender!'} price={'$$$'} data={businesses} />
     </View>
   );
 };
