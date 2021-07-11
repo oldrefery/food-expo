@@ -1,5 +1,7 @@
 import React from 'react';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { withNavigation } from 'react-navigation';
+
 import BusinessCard from './BusinessCard';
 
 const BusinessesList = ({ title, data, navigation }) => {
@@ -41,4 +43,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BusinessesList;
+export default withNavigation(BusinessesList);

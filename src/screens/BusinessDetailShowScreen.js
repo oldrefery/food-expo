@@ -1,10 +1,12 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-const BusinessDetailShowScreen = () => {
+const BusinessDetailShowScreen = ({ navigation }) => {
+  const id = navigation.getParam('id');
+
   return (
     <View>
-      <Text>Business Detail Show Screen</Text>
+      <Text>{id} Business Detail Show Screen</Text>
     </View>
   );
 };
