@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View } from 'react-native';
+import { FlatList, Image, StyleSheet, Text, View } from 'react-native';
 import yelp from '../api/yelp';
 
 const BusinessDetailShowScreen = ({ navigation }) => {
   const id = navigation.getParam('id');
-  const [businessDetail, setBusinessDetail] = useState({});
+  const [businessDetail, setBusinessDetail] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
@@ -18,13 +18,36 @@ const BusinessDetailShowScreen = ({ navigation }) => {
       .catch((e) => setErrorMessage(e.message));
   };
 
+  if (!businessDetail) {
+    return <Text>{errorMessage}</Text>;
+  }
+
+  const renderItem = ({ item }) => (
+    <Image key={item} source={{ uri: item }} style={styles.image} />
+  );
+
+  const keyExtractor = (item) => item;
+
   return (
     <View>
       <Text>Business Detail Show Screen</Text>
-      {errorMessage ? <Text>{errorMessage}</Text> : null}
-      {businessDetail && <Text>{businessDetail.name}</Text>}
+      <Text>{businessDetail.name}</Text>
+      <FlatList
+        data={businessDetail.photos}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+      />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  image: {
+    width: 300,
+    height: 200,
+    marginTop: 15,
+    alignSelf: 'center',
+  },
+});
 
 export default BusinessDetailShowScreen;
