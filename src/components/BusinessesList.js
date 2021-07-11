@@ -17,6 +17,10 @@ const BusinessesList = ({ title, data, navigation }) => {
 
   const keyExtractor = (item) => item.id;
 
+  if (data.length === 0) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
