@@ -1,34 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import SearchBar from '../components/SearchBar';
-import yelp from '../api/yelp';
-
-const LOCATION = 'New York City';
+import { useBusinesses } from '../hooks/useBusinesses';
 
 const SearchScreen = () => {
   const [searchText, setSearchText] = useState('');
-  const [businesses, setBusinesses] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
-
-  useEffect(() => {
-    searchApi(searchText);
-  }, []);
-
-  const searchApi = (term) => {
-    yelp
-      .get('/search', {
-        params: {
-          location: LOCATION,
-          limit: 50,
-          term,
-        },
-      })
-      .then((res) => {
-        setBusinesses(res.data?.businesses || []);
-        setErrorMessage('');
-      })
-      .catch((e) => setErrorMessage(e.message));
-  };
+  const [searchApi, businesses, errorMessage] = useBusinesses();
 
   const handleChangeSearchText = (newValue) => {
     setSearchText(newValue);
