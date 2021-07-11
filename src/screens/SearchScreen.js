@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import { useBusinesses } from '../hooks/useBusinesses';
 import BusinessesList from '../components/BusinessesList';
@@ -21,14 +21,14 @@ const SearchScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <>
       <SearchBar
         searchText={searchText}
         onChangeSearchText={handleChangeSearchText}
         onSearchTextSubmit={handleSubmitSearch}
       />
       {errorMessage ? <Text>{errorMessage}</Text> : null}
-      <ScrollView style={styles.scrollContainer}>
+      <ScrollView>
         <BusinessesList
           title={'Cost Effective'}
           data={filterResultsByPrice('$')}
@@ -46,14 +46,8 @@ const SearchScreen = () => {
           data={filterResultsByPrice('$$$$')}
         />
       </ScrollView>
-    </View>
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default SearchScreen;

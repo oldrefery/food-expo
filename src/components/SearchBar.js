@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgrey',
     borderRadius: 5,
     marginHorizontal: 15,
-    marginTop: 10,
+    marginVertical: 10,
     height: 50,
   },
   input: {
