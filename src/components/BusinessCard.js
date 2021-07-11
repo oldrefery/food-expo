@@ -14,7 +14,6 @@ const BusinessCard = ({ item }) => {
       <Text style={styles.info}>
         {item.rating} Stars, {item.review_count} Reviews
       </Text>
-      <Text>Price: {item.price}</Text>
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import { useBusinesses } from '../hooks/useBusinesses';
 import BusinessesList from '../components/BusinessesList';
@@ -7,6 +7,10 @@ import BusinessesList from '../components/BusinessesList';
 const SearchScreen = () => {
   const [searchText, setSearchText] = useState('');
   const [searchApi, businesses, errorMessage] = useBusinesses();
+
+  const filterResultsByPrice = (price) => {
+    return businesses.filter((business) => business.price === price);
+  };
 
   const handleChangeSearchText = (newValue) => {
     setSearchText(newValue);
@@ -17,19 +21,39 @@ const SearchScreen = () => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <SearchBar
         searchText={searchText}
         onChangeSearchText={handleChangeSearchText}
         onSearchTextSubmit={handleSubmitSearch}
       />
       {errorMessage ? <Text>{errorMessage}</Text> : null}
-      <Text>We have found {businesses.length} results</Text>
-      <BusinessesList title={'Cost Effective'} price={'$'} data={businesses} />
-      <BusinessesList title={'Bit Pricier'} price={'$$'} data={businesses} />
-      <BusinessesList title={'Big Spender!'} price={'$$$'} data={businesses} />
+      <ScrollView style={styles.scrollContainer}>
+        <BusinessesList
+          title={'Cost Effective'}
+          data={filterResultsByPrice('$')}
+        />
+        <BusinessesList
+          title={'Bit Pricier'}
+          data={filterResultsByPrice('$$')}
+        />
+        <BusinessesList
+          title={'Big Spender!'}
+          data={filterResultsByPrice('$$$')}
+        />
+        <BusinessesList
+          title={'The most expensive!'}
+          data={filterResultsByPrice('$$$$')}
+        />
+      </ScrollView>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default SearchScreen;
