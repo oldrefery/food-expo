@@ -2,17 +2,18 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 const BusinessCard = ({ item }) => {
-  // console.log('item', item);
   return (
     <View style={styles.cardContainer}>
       <Image
-        style={{ width: 100, height: 100 }}
+        style={styles.image}
         source={{
           uri: item.image_url,
         }}
       />
-      <Text>{item.name}</Text>
-      <Text>Rating {item.rating}</Text>
+      <Text style={styles.name}>{item.name}</Text>
+      <Text style={styles.info}>
+        {item.rating} Stars, {item.review_count} Reviews
+      </Text>
       <Text>Price: {item.price}</Text>
     </View>
   );
@@ -20,7 +21,19 @@ const BusinessCard = ({ item }) => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    borderWidth: 1,
+    marginLeft: 15,
+  },
+  image: {
+    width: 250,
+    height: 120,
+    borderRadius: 4,
+    marginBottom: 5,
+  },
+  name: {
+    fontWeight: 'bold',
+  },
+  info: {
+    color: 'darkgrey',
   },
 });
 

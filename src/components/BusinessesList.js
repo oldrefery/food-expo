@@ -10,13 +10,14 @@ const BusinessesList = ({ title, price, data }) => {
   const keyExtractor = (item) => item.id;
 
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       <FlatList
         data={businesses}
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         horizontal
+        showsHorizontalScrollIndicator={false}
       />
     </View>
   );
@@ -24,8 +25,13 @@ const BusinessesList = ({ title, price, data }) => {
 
 const styles = StyleSheet.create({
   title: {
+    marginLeft: 15,
+    marginBottom: 5,
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  container: {
+    marginBottom: 10,
   },
 });
 
