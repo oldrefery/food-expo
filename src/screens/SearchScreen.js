@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import yelp from '../api/yelp';
@@ -8,21 +8,26 @@ const LOCATION = 'New York City';
 const SearchScreen = () => {
   const [searchText, setSearchText] = useState('');
   const [businesses, setBusinesses] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const searchApi = () => {
-    console.log('searchApi was invoked');
+  useEffect(() => {
+    searchApi(searchText);
+  }, []);
+
+  const searchApi = (term) => {
     yelp
       .get('/search', {
         params: {
           location: LOCATION,
           limit: 50,
-          term: searchText,
+          term,
         },
       })
       .then((res) => {
         setBusinesses(res.data?.businesses || []);
+        setErrorMessage('');
       })
-      .catch((e) => console.log(e));
+      .catch((e) => setErrorMessage(e.message));
   };
 
   const handleChangeSearchText = (newValue) => {
@@ -30,7 +35,7 @@ const SearchScreen = () => {
   };
 
   const handleSubmitSearch = () => {
-    searchApi();
+    searchApi(searchText);
   };
 
   return (
@@ -40,6 +45,7 @@ const SearchScreen = () => {
         onChangeSearchText={handleChangeSearchText}
         onSearchTextSubmit={handleSubmitSearch}
       />
+      {errorMessage ? <Text>{errorMessage}</Text> : null}
       <Text>We have found {businesses.length} results</Text>
     </View>
   );
