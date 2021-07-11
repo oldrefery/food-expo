@@ -1,9 +1,17 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import BusinessCard from './BusinessCard';
 
-const BusinessesList = ({ title, data }) => {
-  const renderItem = ({ item }) => <BusinessCard item={item} />;
+const BusinessesList = ({ title, data, navigation }) => {
+  const handlePressCard = (item) => {
+    navigation.navigate('BusinessDetail', { id: item.id });
+  };
+
+  const renderItem = ({ item }) => (
+    <Pressable onPress={() => handlePressCard(item)}>
+      <BusinessCard item={item} />
+    </Pressable>
+  );
 
   const keyExtractor = (item) => item.id;
 
